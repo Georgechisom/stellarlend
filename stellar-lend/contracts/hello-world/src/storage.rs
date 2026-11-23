@@ -363,3 +363,19 @@ mod tests {
         assert!(validate_namespace_tags(&tags));
     }
 }
+
+// ─── Typed storage key slots (#1594) ────────────────────────────────────────
+
+/// Canonical const-slot keys used throughout the contract.
+/// Adding a new key here (append-only) prevents symbol collisions.
+#[contracttype]
+#[derive(Clone)]
+pub enum StorageKey {
+    // Gauge / voting (#1576)
+    GaugeWeight(Address),
+    GaugeCheckpoint(Address, u64),
+    GaugeTotalWeight,
+    // Health factor webhook (#1582)
+    HealthWebhookUrl(Address),
+    HealthWebhookThreshold(Address),
+}
